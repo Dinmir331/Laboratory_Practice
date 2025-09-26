@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\User\AppData\Local\Temp\ccRe00Ih.s 			page 1
+ARM GAS  C:\Users\User\AppData\Local\Temp\ccIHnEXK.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -27,33 +27,84 @@ ARM GAS  C:\Users\User\AppData\Local\Temp\ccRe00Ih.s 			page 1
   24              		.thumb
   25              		.thumb_func
   27              	main:
-  28              	.LFB0:
-   1:Core/Src/main.c **** int main(void){ 
-  29              		.loc 1 1 15 view -0
+  28              	.LFB130:
+   1:Core/Src/main.c **** // #include <stdint.h>
+   2:Core/Src/main.c **** #include "stm32f411xe.h"
+   3:Core/Src/main.c **** #include "stm32f4xx.h"
+   4:Core/Src/main.c **** // #define RCC_AHB1ENR (*(volatile uint32_t*)0x40023800UL)
+   5:Core/Src/main.c **** // #define GPIOC_MODER (*(volatile uint32_t*)0x40020800UL)
+   6:Core/Src/main.c **** // #define GPIOC_OTYPER (*(volatile uint32_t*)0x40020804UL)
+   7:Core/Src/main.c **** // #define GPIOC_OSPEEDR (*(volatile uint32_t*)0x40020808UL)
+   8:Core/Src/main.c **** // #define GPIOC_PUPDR (*(volatile uint32_t*)0x4002080CUL)
+   9:Core/Src/main.c **** // #define GPIOC_BSRR (*(volatile uint32_t*)0x40020818UL)
+  10:Core/Src/main.c **** 
+  11:Core/Src/main.c **** 
+  12:Core/Src/main.c **** int main(void){ 
+  29              		.loc 1 12 15 view -0
   30              		.cfi_startproc
   31              		@ Volatile: function does not return.
   32              		@ args = 0, pretend = 0, frame = 0
   33              		@ frame_needed = 0, uses_anonymous_args = 0
   34              		@ link register save eliminated.
-  35              	.L2:
-   2:Core/Src/main.c ****     while(1){
-  36              		.loc 1 2 5 view .LVU1
-   3:Core/Src/main.c ****         
-   4:Core/Src/main.c ****     } 
-  37              		.loc 1 4 5 view .LVU2
-   2:Core/Src/main.c ****     while(1){
-  38              		.loc 1 2 10 view .LVU3
-  39 0000 FEE7     		b	.L2
-  40              		.cfi_endproc
-  41              	.LFE0:
-  43              		.text
-  44              	.Letext0:
-ARM GAS  C:\Users\User\AppData\Local\Temp\ccRe00Ih.s 			page 2
+  13:Core/Src/main.c ****     SET_BIT(RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN);
+  35              		.loc 1 13 5 view .LVU1
+  36 0000 094A     		ldr	r2, .L3
+  37 0002 136B     		ldr	r3, [r2, #48]
+  38 0004 43F00403 		orr	r3, r3, #4
+  39 0008 1363     		str	r3, [r2, #48]
+  14:Core/Src/main.c **** 
+  15:Core/Src/main.c ****     SET_BIT(GPIOC->MODER, GPIO_MODER_MODE13_0);
+  40              		.loc 1 15 5 view .LVU2
+  41 000a 084B     		ldr	r3, .L3+4
+  42 000c 1A68     		ldr	r2, [r3]
+  43 000e 42F08062 		orr	r2, r2, #67108864
+ARM GAS  C:\Users\User\AppData\Local\Temp\ccIHnEXK.s 			page 2
+
+
+  44 0012 1A60     		str	r2, [r3]
+  16:Core/Src/main.c ****     SET_BIT(GPIOC->BSRR, GPIO_BSRR_BS13);
+  45              		.loc 1 16 5 view .LVU3
+  46 0014 9A69     		ldr	r2, [r3, #24]
+  47 0016 42F40052 		orr	r2, r2, #8192
+  48 001a 9A61     		str	r2, [r3, #24]
+  49              	.L2:
+  17:Core/Src/main.c ****     // *(uint32_t*)(0x40023800UL + 0x30UL) |= 0x04; // AHB1ENR // Включение тактиро
+  18:Core/Src/main.c **** 
+  19:Core/Src/main.c ****     // *(uint32_t*)(0x40020800UL + 0x00UL) |= 0x40000000; // MODER // Настройка работ
+  20:Core/Src/main.c ****     // *(uint32_t*)(0x40020800UL + 0x04UL) |= 0x00;     // OTYPER // Настройка на Push P
+  21:Core/Src/main.c ****     // *(uint32_t*)(0x40020800UL + 0x08UL) |= 0x40000000; //OSPEEDR // Настройка скор�
+  22:Core/Src/main.c ****     // *(uint32_t*)(0x40020800UL + 0x0CUL) |= 0x00; //PUPDR // Отключение PU/PD рези�
+  23:Core/Src/main.c **** 
+  24:Core/Src/main.c ****     while(1){
+  50              		.loc 1 24 5 view .LVU4
+  25:Core/Src/main.c ****         SET_BIT(GPIOC->BSRR, GPIO_BSRR_BR13);
+  51              		.loc 1 25 9 discriminator 1 view .LVU5
+  52 001c 034A     		ldr	r2, .L3+4
+  53 001e 9369     		ldr	r3, [r2, #24]
+  54 0020 43F00053 		orr	r3, r3, #536870912
+  55 0024 9361     		str	r3, [r2, #24]
+  24:Core/Src/main.c ****         SET_BIT(GPIOC->BSRR, GPIO_BSRR_BR13);
+  56              		.loc 1 24 10 view .LVU6
+  57 0026 F9E7     		b	.L2
+  58              	.L4:
+  59              		.align	2
+  60              	.L3:
+  61 0028 00380240 		.word	1073887232
+  62 002c 00080240 		.word	1073874944
+  63              		.cfi_endproc
+  64              	.LFE130:
+  66              		.text
+  67              	.Letext0:
+  68              		.file 2 "C:/Users/User/Tools/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/machine/_def
+  69              		.file 3 "C:/Users/User/Tools/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/sys/_stdint.
+  70              		.file 4 "CMSIS/Devices/STM32F4xx/Inc/STM32F411xE/stm32f411xe.h"
+ARM GAS  C:\Users\User\AppData\Local\Temp\ccIHnEXK.s 			page 3
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\User\AppData\Local\Temp\ccRe00Ih.s:21     .text.main:00000000 $t
-C:\Users\User\AppData\Local\Temp\ccRe00Ih.s:27     .text.main:00000000 main
+C:\Users\User\AppData\Local\Temp\ccIHnEXK.s:21     .text.main:00000000 $t
+C:\Users\User\AppData\Local\Temp\ccIHnEXK.s:27     .text.main:00000000 main
+C:\Users\User\AppData\Local\Temp\ccIHnEXK.s:61     .text.main:00000028 $d
 
 NO UNDEFINED SYMBOLS
