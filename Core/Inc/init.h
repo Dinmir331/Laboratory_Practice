@@ -7,8 +7,8 @@
 
 // #define USE_REGISTERS_ONLY // Реализация задания напрямую через регистры 
 // #define USE_MACROS_ONLY // Реализация задания через макросы и директивы
-// #define USE_CMSIS_ONLY // Реализация задания через библиотеку CMSIS
-#define ADD_TASK // Реализация дополнительного задания с использованием библиотеки CMSIS
+#define USE_CMSIS_ONLY // Реализация задания через библиотеку CMSIS
+// #define ADD_TASK // Реализация дополнительного задания с использованием библиотеки CMSIS
 
 #if defined(USE_REGISTERS_ONLY) // Реализация только через регистры
 

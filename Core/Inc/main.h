@@ -72,9 +72,11 @@ uint32_t read_button2(void) {
 
 #elif defined(USE_CMSIS_ONLY)
 
-void set_all_leds(void) {
-    for(int i = 0; i < 6; i++) {
-        set_led_state(i, 1);
+void set_led_state(uint32_t led_index, uint32_t state) {
+    if (state) {
+        GPIOA->ODR |= (1UL << (led_index + 2));
+    } else {
+        GPIOA->ODR &= ~(1UL << (led_index + 2));
     }
 }
 
